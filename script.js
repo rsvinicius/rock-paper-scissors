@@ -1,7 +1,8 @@
 let playerScore = 0;
 let computerScore = 0;
 
-let playground = document.querySelector('.playground');
+const playground = document.querySelector('.playground');
+const results = document.querySelector('#results');
 
 playground.addEventListener('click', (event) => {
     let target = event.target;
@@ -12,14 +13,38 @@ playground.addEventListener('click', (event) => {
 
     playerChoice = capitalize(target.id);
 
-    updateResults(playerChoice, computerChoice);
+    updateResults(
+        playRound(playerChoice, computerChoice),
+        `Score: Player ${playerScore} vs ${computerScore} Computer`
+    );
+
+    const winner = getWinner();
+    if (winner) {
+        announceWinner(winner);
+    }
 });
 
-function updateResults(playerChoice, computerChoice) {
-    let response = document.querySelector('#response');
-    let score = document.querySelector('#score');
-    response.textContent = playRound(playerChoice, computerChoice);
-    score.textContent = `Score: Player ${playerScore} vs ${computerScore} Computer`;
+function getWinner() {
+    if (playerScore === 5) {
+        return 'Player';
+    } else if (computerScore === 5) {
+        return 'Computer';
+    }
+    return null;
+}
+
+function announceWinner(winner) {
+    updateResults(`${winner} wins!`,'');
+
+    playerScore = 0;
+    computerScore = 0;
+}
+
+function updateResults(response, score) {
+    let resultResponse = document.querySelector('#response');
+    let resultScore = document.querySelector('#score');
+    resultResponse.textContent = response;
+    resultScore.textContent = score;
 }
 
 function getComputerChoice() {
