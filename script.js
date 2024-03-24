@@ -1,6 +1,3 @@
-console.log('Welcome to the Rock Paper Scissors Game!');
-console.log('Type playGame() to begin!');
-
 let playerScore = 0;
 let computerScore = 0;
 
@@ -15,9 +12,15 @@ playground.addEventListener('click', (event) => {
 
     playerChoice = capitalize(target.id);
 
-    console.log(playRound(playerChoice, computerChoice));
-    console.log(`Score: Player ${playerScore} vs ${computerScore} Computer`);
+    updateResults(playerChoice, computerChoice);
 });
+
+function updateResults(playerChoice, computerChoice) {
+    let response = document.querySelector('#response');
+    let score = document.querySelector('#score');
+    response.textContent = playRound(playerChoice, computerChoice);
+    score.textContent = `Score: Player ${playerScore} vs ${computerScore} Computer`;
+}
 
 function getComputerChoice() {
     const choices = ['Rock', 'Paper', 'Scissors'];
