@@ -5,13 +5,11 @@ const playground = document.querySelector('.playground');
 const results = document.querySelector('#results');
 
 playground.addEventListener('click', (event) => {
-    let target = event.target;
-    let playerChoice;
-    let computerChoice = getComputerChoice();
+    const target = event.target;
+    if (!target.id) return
 
-    if (target.id === '') return;
-
-    playerChoice = capitalize(target.id);
+    const computerChoice = getComputerChoice();
+    const playerChoice = capitalize(target.id);
 
     updateResults(
         playRound(playerChoice, computerChoice),
@@ -34,7 +32,7 @@ function getWinner() {
 }
 
 function announceWinner(winner) {
-    updateResults(`${winner} wins!`,'');
+    updateResults(`${winner} wins!`, '');
 
     playerScore = 0;
     computerScore = 0;
