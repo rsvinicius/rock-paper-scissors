@@ -4,19 +4,20 @@ console.log('Type playGame() to begin!');
 let playerScore = 0;
 let computerScore = 0;
 
-function playGame() {
+let playground = document.querySelector('.playground');
+
+playground.addEventListener('click', (event) => {
+    let target = event.target;
     let playerChoice;
-    let computerChoice
+    let computerChoice = getComputerChoice();
 
-    for (let index = 0; index < 5; index++) {
-        playerChoice = capitalize(prompt('Enter your choice:'));
-        computerChoice = getComputerChoice()
-    
-        console.log(playRound(playerChoice, computerChoice))
+    if (target.id === '') return;
 
-        console.log(`Score: Player ${playerScore} vs ${computerScore} Computer`)
-    }
-}
+    playerChoice = capitalize(target.id);
+
+    console.log(playRound(playerChoice, computerChoice));
+    console.log(`Score: Player ${playerScore} vs ${computerScore} Computer`);
+});
 
 function getComputerChoice() {
     const choices = ['Rock', 'Paper', 'Scissors'];
@@ -29,7 +30,7 @@ let capitalize = (str) => {
     return str[0].toUpperCase() + str.substring(1).toLowerCase();
 }
 
-let playRound = function(playerChoice, computerChoice) {
+let playRound = function (playerChoice, computerChoice) {
     if (playerChoice == computerChoice) {
         return 'Draw!'
     } else if (
